@@ -3,6 +3,9 @@ import Navbar from "./components/Navbar";
 import ProfileCard from "./components/ProfileCard";
 
 
+
+
+
 export default function Home() {
 
  
@@ -10,7 +13,8 @@ export default function Home() {
     <main>
 
       
-      {/* <ProfileCard/> */}
+    
+      
    
     </main>
   );
