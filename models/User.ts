@@ -1,12 +1,21 @@
-// models/User.js
-
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  role: String,
-  bio: String
-});
+    email: {
+      type: String,
+      unique: [true, 'Email already exists!'],
+      required: [true, 'Email is required!'],
+    },
+    name: {
+      type: String,
+      required: [true, 'Name is required!'],
+    },
+    image: String,
+    city: String,
+    phone: String,
+   
+  });
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
+export default User;
