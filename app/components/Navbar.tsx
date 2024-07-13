@@ -1,41 +1,76 @@
-// components/Navbar.tsx
-"use client";
-import React from "react";
-import Link from "next/link";
-import {
-    SignInButton,
-    SignedIn,
-    SignedOut,
-    UserButton
-  } from '@clerk/nextjs'
+'use client'
 
-const Navbar = () => {
+import React from 'react';
+import Link from 'next/link';
+import { useSession, signOut } from "next-auth/react";
+import Image from 'next/image';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+
+const Navbar: React.FC = () => {
+  const { data: session, status } = useSession()
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
 
   return (
-    <nav className="shadow-md">
-      <div className="container mx-auto max-w-7xl flex items-center justify-between p-4">
-        {/* Logo Section */}
-        <div className="flex items-center">
-          <Link href="/">
-            <span className="text-lg font-semibold text-white">Techverse</span>
-          </Link>
+    <header className="shadow-md bg-black text-white">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            <Link href="/" className="text-xl font-bold">
+              Techverse
+            </Link>
+          </div>
+          <div className="flex items-center">
+            {status === "authenticated" ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="rounded-full p-0 w-10 h-10 overflow-hidden">
+                    {session.user?.image ? (
+                      <Image 
+                        src={session.user.image} 
+                        alt="Profile" 
+                        width={40} 
+                        height={40}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-blue-500 text-white">
+                        {getInitials(session.user?.name || 'User')}
+                      </div>
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem className="font-medium">
+                    {session.user?.name}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => signOut()}>
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button asChild>
+                <Link href="/api/auth/signin">Sign In</Link>
+              </Button>
+            )}
+          </div>
         </div>
-
-        {/* Navigation Links */}
-        <ul className="flex space-x-6">
-          <li>
-          <SignedOut>
-          <SignInButton/>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-          </li>
-        </ul>
-
-       
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
