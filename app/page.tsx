@@ -34,8 +34,7 @@ export default function Home() {
     };
   
     fetchUsers();
-  }, []);
-  
+  }, [session]); // Added session as a dependency to refetch users on session change
 
   if (status === "loading") {
     return (
