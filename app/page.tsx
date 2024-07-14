@@ -78,7 +78,7 @@ export default function Home() {
   return (
     <main className="container max-w-7xl mx-auto py-8 bg-[#000000]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {filteredUsers.map((user) => (
+        {filteredUsers.slice().reverse().map((user) => (
           <ProfileCard key={user._id} user={user} />
         ))}
       </div>
