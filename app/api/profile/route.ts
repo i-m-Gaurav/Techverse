@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient,Document} from 'mongodb';
 
 const uri = process.env.MONGODB_URI as string;
 
@@ -159,6 +159,7 @@ export async function POST(req: NextRequest) {
 }
 
 
+
 export async function DELETE(req: NextRequest) {
   const client = new MongoClient(uri);
 
@@ -184,9 +185,13 @@ export async function DELETE(req: NextRequest) {
 
     console.log(`Attempting to delete item "${item}" from category "${category}" for user with email: ${email}`);
 
+    // Create a dynamically typed update object
+    const updateObject: Document = {};
+    updateObject[category] = item;
+
     const updateResult = await usersCollection.updateOne(
       { email },
-      { $pull: { [category as string]: { $in: [item as string] } } }
+      { $pull: updateObject }
     );
 
     if (updateResult.matchedCount === 0) {
