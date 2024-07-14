@@ -82,9 +82,9 @@ const UserInterest: React.FC<UserInterestProps> = ({
 
 
   const renderItems = (items: string[], category: string) => (
-    <ul className="space-y-4">
+    <div className=" space-y-4">
       {items.map((item, index) => (
-        <li key={index} className="flex flex-col">
+        <div key={index} className="flex flex-col">
           <div className="flex justify-between items-center text-white">
             {category === 'links' ? (
               <a
@@ -106,9 +106,9 @@ const UserInterest: React.FC<UserInterestProps> = ({
             )}
           </div>
           {category === 'links' && <LinkPreview url={item} />}
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 
 

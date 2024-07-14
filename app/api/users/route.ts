@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
         const users = await usersCollection.find(
             {},
-            { projection: { name: 1, profession: 1, image: 1, email: 1 } }
+            { projection: { name: 1, profession: 1, college:1, image: 1, email: 1 } }
         ).toArray();
 
         if (users.length === 0) {

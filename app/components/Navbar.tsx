@@ -4,6 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from "next-auth/react";
 import Image from 'next/image';
+
+import {useRouter} from 'next/navigation'
+
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +18,7 @@ import { Button } from "@/components/ui/button"
 
 const Navbar: React.FC = () => {
   const { data: session, status } = useSession()
+  const router = useRouter();
 
   const getInitials = (name: string) => {
     return name
@@ -54,10 +59,11 @@ const Navbar: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className='bg-[#0a0a0a] text-white border-[#36363d] rounded'>
-                  <DropdownMenuItem className="font-medium">
-                    <Link href="/ProfilePage">
+                  <DropdownMenuItem onSelect={() => router.push("/ProfilePage")} className="font-medium">
+                    {/* <Link href="/ProfilePage">
                       <h1>Profile</h1>
-                    </Link>
+                    </Link> */}
+                    Profile
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => signOut()}>
                     Sign out

@@ -10,6 +10,7 @@ interface User {
   profession: string;
   image: string;
   email?: string; // Add email field to match with session user
+  college:string;
 }
 
 export default function Home() {
