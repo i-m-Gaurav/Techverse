@@ -232,7 +232,7 @@ const ProfilePage: React.FC = () => {
                   </div>
                   <button
                     onClick={handleEdit}
-                    className="bg-gray-700 w-1/3 bg-transparent border-2  border-[#36363d] text-[#cccccc] hover:text-black hover:bg-[#cccccc] text-xs  py-1 px-4 rounded"
+                    className="bg-gray-700 w-[200px] bg-transparent border-2  border-[#36363d] text-[#cccccc] hover:text-black hover:bg-[#cccccc] text-xs  py-1 px-4 rounded"
                   >
                     Edit Profile
                   </button>

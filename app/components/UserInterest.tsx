@@ -81,13 +81,13 @@ const UserInterest: React.FC<UserInterestProps> = ({
     <div className="space-y-4">
       {items.slice().reverse().map((item, index) => (
         <div key={index} className="flex flex-col">
-          <div className="flex justify-between items-center text-white">
+          <div className="flex justify-end items-center bg-red text-white">
             {category === 'links' || category === 'youtubers' ? (
               <a
                 href={item}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 hover:underline hidden text-xs "
               >
                 {item}
               </a>
