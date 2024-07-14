@@ -28,8 +28,7 @@ const ProfilePage: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<UserProfile | null>(null);
-  const [isOwnProfile, setIsOwnProfile] = useState(false);
-
+  const [isOwnProfile, setIsOwnProfile] = useState(true);  // Set to true for ProfilePage/page.tsx
 
   const fetchProfile = useCallback(async () => {
     if (session?.user?.email) {
@@ -47,7 +46,7 @@ const ProfilePage: React.FC = () => {
     fetchProfile();
   }, [fetchProfile]);
 
- const handleEdit = () => {
+  const handleEdit = () => {
     setIsEditing(true);
   };
 
@@ -102,10 +101,7 @@ const ProfilePage: React.FC = () => {
   };
 
   if (status === "loading") {
-    return <div>
-
-      boading
-    </div>;
+    return <div>Loading</div>;
   }
 
   if (status === "unauthenticated") {
@@ -113,8 +109,8 @@ const ProfilePage: React.FC = () => {
   }
   
   return (
-    <div className="bg-[#000000] text-white min-h-screen p-8">
-      <div className="max-w-7xl mx-auto border-[#36363d] bg-[#000000] rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-[#000000]  text-white  p-8">
+      <div className="max-w-7xl mx-auto border border-[#36363d] bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         {profile && (
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 p-8 flex justify-center items-center">
