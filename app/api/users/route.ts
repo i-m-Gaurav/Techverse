@@ -7,7 +7,6 @@ if (!uri) {
     throw new Error('Please add the MONGODB_URI');
 }
 
-
 export async function GET(req: NextRequest) {
     const client = new MongoClient(uri);
 
@@ -19,7 +18,7 @@ export async function GET(req: NextRequest) {
 
         const users = await usersCollection.find(
             {},
-            { projection: { name: 1, profession: 1, image: 1 } }
+            { projection: { name: 1, profession: 1, image: 1, email: 1 } }
         ).toArray();
 
         if (users.length === 0) {

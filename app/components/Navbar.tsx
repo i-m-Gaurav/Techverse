@@ -55,7 +55,9 @@ const Navbar: React.FC = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className='bg-gray-900 text-white border-[#36363d] rounded'>
                   <DropdownMenuItem className="font-medium">
-                    {session.user?.name}
+                    <Link href="/ProfilePage">
+                      {session.user?.name}
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => signOut()}>
                     Sign out

@@ -113,7 +113,7 @@ const ProfilePage: React.FC = () => {
   }
   
   return (
-    <div className="bg-[#000000] border  text-white min-h-screen p-8">
+    <div className="bg-[#000000] text-white min-h-screen p-8">
       <div className="max-w-7xl mx-auto border-[#36363d] bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         {profile && (
           <div className="flex flex-col md:flex-row">

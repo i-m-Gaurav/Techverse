@@ -9,6 +9,7 @@ interface User {
   name: string;
   profession: string;
   image: string;
+  email?: string; // Add email field to match with session user
 }
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get('/api/users');
+        console.log('Fetched Users:', response.data); // Log fetched users to verify
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -30,9 +32,18 @@ export default function Home() {
         setLoading(false);
       }
     };
-
+  
     fetchUsers();
   }, []);
+  
+
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-[400px] bg-black">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-400"></div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -50,10 +61,24 @@ export default function Home() {
     );
   }
 
+  // Log session data
+  console.log('Session Data:', session);
+
+  // Log users data
+  console.log('All Users:', users);
+
+  // Filter out the current user and log the filtered users
+  const filteredUsers = users.filter(user => {
+    console.log('Comparing:', user.email, 'with', session?.user?.email);
+    return user.email !== session?.user?.email;
+  });
+  
+  console.log('Filtered Users:', filteredUsers);
+
   return (
     <main className="container max-w-7xl mx-auto py-8 bg-[#000000]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <ProfileCard key={user._id} user={user} />
         ))}
       </div>
