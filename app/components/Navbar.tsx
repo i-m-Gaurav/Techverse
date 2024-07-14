@@ -53,10 +53,10 @@ const Navbar: React.FC = () => {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className='bg-gray-900 text-white border-[#36363d] rounded'>
+                <DropdownMenuContent align="end" className='bg-[#0a0a0a] text-white border-[#36363d] rounded'>
                   <DropdownMenuItem className="font-medium">
                     <Link href="/ProfilePage">
-                      {session.user?.name}
+                      <h1>Profile</h1>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => signOut()}>

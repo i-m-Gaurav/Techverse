@@ -49,7 +49,7 @@ export default function UserProfilePage() {
 
   if (status === "loading" || !profile) {
     return <div>
-         <div className="flex justify-center items-center h-[400px] bg-[#000000]">
+      <div className="flex justify-center items-center h-[400px] bg-[#000000]">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-400"></div>
       </div>
     </div>;

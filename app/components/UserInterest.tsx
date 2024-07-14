@@ -3,6 +3,7 @@ import { PlusCircle, Trash } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import LinkPreview from './LinkPreview';
 
 const globalStyles = `
   <style>
@@ -59,7 +60,7 @@ const UserInterest: React.FC<UserInterestProps> = ({
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
               placeholder={`Add new ${category}`}
-              className="bg-gray-900 ring-0 focus:ring-0 focus:outline-none"
+              className="bg-[#0a0a0a] rounded-full border border-[#36363d] ring-0 focus:ring-0 focus:outline-none"
             />
             <Button onClick={() => handleAddItem(category)} className="focus:ring-0 focus:outline-none">Add</Button>
           </div>
@@ -77,32 +78,40 @@ const UserInterest: React.FC<UserInterestProps> = ({
     )
   );
 
+
+
+
   const renderItems = (items: string[], category: string) => (
-    <ul className="space-y-1">
+    <ul className="space-y-4">
       {items.map((item, index) => (
-        <li key={index} className="flex justify-between items-center text-white">
-          {category === 'links' ? (
-            <a
-              href={`https://www.google.com/search?q=${encodeURIComponent(item)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:underline"
-            >
-              {item}
-            </a>
-          ) : (
-            item
-          )}
-          {isEditable && onDeleteInterest && (
-            <Trash
-              className="h-4 w-4 ml-10 cursor-pointer hover:text-red-500"
-              onClick={() => onDeleteInterest(category, item)}
-            />
-          )}
+        <li key={index} className="flex flex-col">
+          <div className="flex justify-between items-center text-white">
+            {category === 'links' ? (
+              <a
+                href={item}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:underline"
+              >
+                {item}
+              </a>
+            ) : (
+              item
+            )}
+            {isEditable && onDeleteInterest && (
+              <Trash
+                className="h-4 w-4 ml-10 cursor-pointer hover:text-red-500"
+                onClick={() => onDeleteInterest(category, item)}
+              />
+            )}
+          </div>
+          {category === 'links' && <LinkPreview url={item} />}
         </li>
       ))}
     </ul>
   );
+
+
 
   return (
     <>

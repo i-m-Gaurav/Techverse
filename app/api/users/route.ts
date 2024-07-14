@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
         const db = client.db();
 
         const usersCollection = db.collection('users');
-        console.log(usersCollection);
+       
 
         const users = await usersCollection.find(
             {},

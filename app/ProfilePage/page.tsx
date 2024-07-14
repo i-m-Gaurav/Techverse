@@ -101,7 +101,12 @@ const ProfilePage: React.FC = () => {
   };
 
   if (status === "loading") {
-    return <div>Loading</div>;
+    return <div>
+
+<div className="flex justify-center items-center h-[400px] bg-black">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-400"></div>
+      </div>
+    </div>;
   }
 
   if (status === "unauthenticated") {
