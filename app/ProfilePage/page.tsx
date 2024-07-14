@@ -113,8 +113,8 @@ const ProfilePage: React.FC = () => {
   }
   
   return (
-    <div className="bg-[#000000] text-white min-h-screen p-8">
-      <div className="max-w-7xl mx-auto bg-[#000000] rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-[#000000] border  text-white min-h-screen p-8">
+      <div className="max-w-7xl mx-auto border-[#36363d] bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         {profile && (
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 p-8 flex justify-center items-center">
