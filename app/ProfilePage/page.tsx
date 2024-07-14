@@ -28,6 +28,8 @@ const ProfilePage: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<UserProfile | null>(null);
+  const [isOwnProfile, setIsOwnProfile] = useState(false);
+
 
   const fetchProfile = useCallback(async () => {
     if (session?.user?.email) {
@@ -100,7 +102,10 @@ const ProfilePage: React.FC = () => {
   };
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <div>
+
+      boading
+    </div>;
   }
 
   if (status === "unauthenticated") {
@@ -244,6 +249,7 @@ const ProfilePage: React.FC = () => {
             youtubers={profile.youtubers}
             onAddInterest={handleAddInterest}
             onDeleteInterest={handleDeleteInterest}
+            isEditable={isOwnProfile}
           />
         )}
       </div>
