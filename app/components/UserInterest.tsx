@@ -24,8 +24,9 @@ interface UserInterestProps {
   links?: string[];
   skills?: string[];
   youtubers?: string[];
-  onAddInterest: (category: string, newItem: string) => void;
-  onDeleteInterest: (category: string, item: string) => void;
+  onAddInterest?: (category: string, newItem: string) => void;
+  onDeleteInterest?: (category: string, item: string) => void;
+  isEditable: boolean;
 }
 
 const UserInterest: React.FC<UserInterestProps> = ({
@@ -33,13 +34,14 @@ const UserInterest: React.FC<UserInterestProps> = ({
   skills = [],
   youtubers = [],
   onAddInterest,
-  onDeleteInterest
+  onDeleteInterest,
+  isEditable
 }) => {
   const [newItem, setNewItem] = useState<string>('');
   const [activeAddSection, setActiveAddSection] = useState<string | null>(null);
 
   const handleAddItem = (category: string) => {
-    if (newItem.trim() !== '') {
+    if (newItem.trim() !== '' && onAddInterest) {
       onAddInterest(category, newItem);
       setNewItem('');
       setActiveAddSection(null);
@@ -47,29 +49,31 @@ const UserInterest: React.FC<UserInterestProps> = ({
   };
 
   const renderAddSection = (category: string) => (
-    <div className="mb-4">
-      {activeAddSection === category ? (
-        <div className="flex items-center space-x-2">
-          <Input
-            type="text"
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            placeholder={`Add new ${category}`}
-            className="bg-gray-900 ring-0 focus:ring-0 focus:outline-none"
-          />
-          <Button onClick={() => handleAddItem(category)} className="focus:ring-0 focus:outline-none">Add</Button>
-        </div>
-      ) : (
-        <Button
-          onClick={() => setActiveAddSection(category)}
-          variant="outline"
-          className="flex items-center rounded-full justify-center hover:bg-gray-700 hover:text-white bg-gray-800 focus:ring-0 focus:outline-none"
-        >
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add {category}
-        </Button>
-      )}
-    </div>
+    isEditable && (
+      <div className="mb-4">
+        {activeAddSection === category ? (
+          <div className="flex items-center space-x-2">
+            <Input
+              type="text"
+              value={newItem}
+              onChange={(e) => setNewItem(e.target.value)}
+              placeholder={`Add new ${category}`}
+              className="bg-gray-900 ring-0 focus:ring-0 focus:outline-none"
+            />
+            <Button onClick={() => handleAddItem(category)} className="focus:ring-0 focus:outline-none">Add</Button>
+          </div>
+        ) : (
+          <Button
+            onClick={() => setActiveAddSection(category)}
+            variant="outline"
+            className="flex items-center rounded-full justify-center hover:bg-gray-700 hover:text-white bg-gray-800 focus:ring-0 focus:outline-none"
+          >
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Add {category}
+          </Button>
+        )}
+      </div>
+    )
   );
 
   const renderItems = (items: string[], category: string) => (
@@ -77,10 +81,12 @@ const UserInterest: React.FC<UserInterestProps> = ({
       {items.map((item, index) => (
         <li key={index} className="flex justify-between items-center text-white">
           {item}
-          <Trash
-            className="h-4 w-4 cursor-pointer hover:text-red-500"
-            onClick={() => onDeleteInterest(category, item)}
-          />
+          {isEditable && onDeleteInterest && (
+            <Trash
+              className="h-4 w-4 cursor-pointer hover:text-red-500"
+              onClick={() => onDeleteInterest(category, item)}
+            />
+          )}
         </li>
       ))}
     </ul>

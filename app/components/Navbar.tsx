@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <header className="shadow-md bg-black text-white">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="border-b border-[#36363d] w-full  bg-gray-900 text-white">
+      <nav className="container max-w-7xl mx-auto ">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold">
@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             {status === "authenticated" ? (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild >
                   <Button variant="ghost" className="rounded-full p-0 w-10 h-10 overflow-hidden">
                     {session.user?.image ? (
                       <Image 
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className='bg-gray-900 text-white border-[#36363d] rounded'>
                   <DropdownMenuItem className="font-medium">
                     {session.user?.name}
                   </DropdownMenuItem>
