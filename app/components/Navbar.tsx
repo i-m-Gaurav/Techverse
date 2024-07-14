@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <header className="border-b border-[#36363d] w-full  bg-gray-900 text-white">
+    <header className="border-b border-[#36363d] w-full  bg-[#0a0a0a] text-white">
       <nav className="container max-w-7xl mx-auto ">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">

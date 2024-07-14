@@ -49,7 +49,7 @@ export default function UserProfilePage() {
 
   if (status === "loading" || !profile) {
     return <div>
-         <div className="flex justify-center items-center h-[400px] bg-gray-900">
+         <div className="flex justify-center items-center h-[400px] bg-[#000000]">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-400"></div>
       </div>
     </div>;
@@ -91,8 +91,8 @@ export default function UserProfilePage() {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
-      <div className="max-w-7xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-[#000000] text-white min-h-screen p-8">
+      <div className="max-w-7xl mx-auto bg-[#0a0a0a] border border-[#36363d] rounded overflow-hidden shadow-lg">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 p-8 flex justify-center items-center">
             <Image
@@ -147,7 +147,7 @@ export default function UserProfilePage() {
           </div>
         </div>
       </div>
-      <div className="mt-5 max-w-7xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+      <div className="mt-5 max-w-7xl mx-auto bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         <UserInterest
           links={profile.links}
           skills={profile.skills}

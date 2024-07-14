@@ -47,7 +47,7 @@ const ProfilePage: React.FC = () => {
     fetchProfile();
   }, [fetchProfile]);
 
-  const handleEdit = () => {
+ const handleEdit = () => {
     setIsEditing(true);
   };
 
@@ -113,8 +113,8 @@ const ProfilePage: React.FC = () => {
   }
   
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
-      <div className="max-w-7xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-[#000000] text-white min-h-screen p-8">
+      <div className="max-w-7xl mx-auto bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         {profile && (
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 p-8 flex justify-center items-center">
@@ -123,7 +123,7 @@ const ProfilePage: React.FC = () => {
                 alt={profile.name}
                 width={240}
                 height={240}
-                className="rounded-full border-4 border-gray-700"
+                className="rounded-full border-4 border-[#36363d]"
               />
             </div>
             <div className="md:w-2/3 p-8">
@@ -134,7 +134,7 @@ const ProfilePage: React.FC = () => {
                     name="name"
                     value={editedProfile?.name || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="Name"
                   />
                   <input
@@ -142,14 +142,14 @@ const ProfilePage: React.FC = () => {
                     name="profession"
                     value={editedProfile?.profession || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="Profession name"
                   />
                   <textarea
                     name="college"
                     value={editedProfile?.college || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="college"
                     rows={3}
                   />
@@ -158,7 +158,7 @@ const ProfilePage: React.FC = () => {
                     name="city"
                     value={editedProfile?.city || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="City"
                   />
                   <input
@@ -166,7 +166,7 @@ const ProfilePage: React.FC = () => {
                     name="github"
                     value={editedProfile?.github || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="GitHub"
                   />
                   <input
@@ -174,7 +174,7 @@ const ProfilePage: React.FC = () => {
                     name="instagram"
                     value={editedProfile?.instagram || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="Instagram"
                   />
                   <input
@@ -182,12 +182,12 @@ const ProfilePage: React.FC = () => {
                     name="twitter"
                     value={editedProfile?.twitter || ''}
                     onChange={handleChange}
-                    className="w-full bg-gray-700 rounded px-3 py-2"
+                    className="w-full bg-[#0a0a0a] border border-[#36363d] text-xs rounded px-3 py-2"
                     placeholder="Twitter"
                   />
                   <button
                     onClick={handleSave}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    className="bg-[#0a0a0a] border border-[#36363d] hover:bg-[#cccccc] hover:text-black text-xs text-white font-bold py-2 px-4 rounded"
                   >
                     Save Profile
                   </button>
@@ -231,7 +231,7 @@ const ProfilePage: React.FC = () => {
                   </div>
                   <button
                     onClick={handleEdit}
-                    className="bg-gray-700 w-1/3 bg-transparent border-2 border-[#36363d] text-white text-xs font-thin py-1 px-4 rounded-md"
+                    className="bg-gray-700 w-1/3 bg-transparent border-2  border-[#36363d] text-[#cccccc] hover:text-black hover:bg-[#cccccc] text-xs  py-1 px-4 rounded"
                   >
                     Edit Profile
                   </button>
@@ -241,7 +241,7 @@ const ProfilePage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="mt-5 max-w-7xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+      <div className="mt-5 max-w-7xl mx-auto bg-[#000000] rounded-lg overflow-hidden shadow-lg">
         {profile && (
           <UserInterest
             links={profile.links}

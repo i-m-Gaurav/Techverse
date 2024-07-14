@@ -27,6 +27,7 @@ interface UserInterestProps {
   onAddInterest?: (category: string, newItem: string) => void;
   onDeleteInterest?: (category: string, item: string) => void;
   isEditable: boolean;
+  
 }
 
 const UserInterest: React.FC<UserInterestProps> = ({
@@ -66,7 +67,7 @@ const UserInterest: React.FC<UserInterestProps> = ({
           <Button
             onClick={() => setActiveAddSection(category)}
             variant="outline"
-            className="flex items-center rounded-full justify-center hover:bg-gray-700 hover:text-white bg-gray-800 focus:ring-0 focus:outline-none"
+            className="flex items-center rounded-full justify-center hover:bg-[#cccccc] border border-[#36363d] hover:text-black  bg-[#0a0a0a] focus:ring-0 focus:outline-none"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             Add {category}
@@ -80,10 +81,21 @@ const UserInterest: React.FC<UserInterestProps> = ({
     <ul className="space-y-1">
       {items.map((item, index) => (
         <li key={index} className="flex justify-between items-center text-white">
-          {item}
+          {category === 'links' ? (
+            <a
+              href={`https://www.google.com/search?q=${encodeURIComponent(item)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:underline"
+            >
+              {item}
+            </a>
+          ) : (
+            item
+          )}
           {isEditable && onDeleteInterest && (
             <Trash
-              className="h-4 w-4 cursor-pointer hover:text-red-500"
+              className="h-4 w-4 ml-10 cursor-pointer hover:text-red-500"
               onClick={() => onDeleteInterest(category, item)}
             />
           )}
@@ -95,28 +107,29 @@ const UserInterest: React.FC<UserInterestProps> = ({
   return (
     <>
       <div dangerouslySetInnerHTML={{ __html: globalStyles }} />
-      <div className='bg-gray-900 '>
-        <Tabs defaultValue="links" className="w-full max-w-[400px]">
-          <TabsList className='bg-gray-800 rounded-md p-1'>
-            <TabsTrigger className='data-[state=active]:bg-gray-700 rounded-md focus:ring-0 focus:outline-none' value="links">Links</TabsTrigger>
-            <TabsTrigger className='data-[state=active]:bg-gray-700 rounded-md focus:ring-0 focus:outline-none' value="skills">Skills</TabsTrigger>
-            <TabsTrigger className='data-[state=active]:bg-gray-700 rounded-md focus:ring-0 focus:outline-none' value="youtubers">Youtubers</TabsTrigger>
+      <div className='bg-[#000000] border border-[#36363d] rounded '>
+        <Tabs defaultValue="links" className="w-full max-w-[600px]">
+          <TabsList className='bg-[#0a0a0a] border border-[#36363d] rounded  p-1'>
+            <TabsTrigger className='data-[state=active]:bg-white data-[state=active]:text-black rounded  focus:ring-0 focus:outline-none' value="links">Links</TabsTrigger>
+            <TabsTrigger className='data-[state=active]:bg-white data-[state=active]:text-black rounded focus:ring-0 focus:outline-none' value="skills">Skills</TabsTrigger>
+            <TabsTrigger className='data-[state=active]:bg-white data-[state=active]:text-black rounded focus:ring-0 focus:outline-none' value="youtubers">Youtubers</TabsTrigger>
           </TabsList>
           <TabsContent value="links" className=' p-4 rounded-md mt-2'>
-            {renderAddSection('links')}
-            <h3 className="text-lg font-semibold text-white mb-2">Links</h3>
-            {renderItems(links, 'links')}
-          </TabsContent>
-          <TabsContent value="skills" className=' p-4 rounded-md mt-2'>
-            {renderAddSection('skills')}
-            <h3 className="text-lg font-semibold text-white mb-2">Skills</h3>
-            {renderItems(skills, 'skills')}
-          </TabsContent>
-          <TabsContent value="youtubers" className=' p-4 rounded-md mt-2'>
-            {renderAddSection('youtubers')}
-            <h3 className="text-lg font-semibold text-white mb-2">Youtubers</h3>
-            {renderItems(youtubers, 'youtubers')}
-          </TabsContent>
+  {renderAddSection('links')}
+  {links.length === 0 && <p className="text-[#CCCCCC]">Nothing here...</p>}
+  {renderItems(links, 'links')}
+</TabsContent>
+<TabsContent value="skills" className=' p-4 rounded-md mt-2'>
+  {renderAddSection('skills')}
+  {skills.length === 0 && <p className="text-[#CCCCCC]">Nothing here...</p>}
+  {renderItems(skills, 'skills')}
+</TabsContent>
+<TabsContent value="youtubers" className=' p-4 rounded-md mt-2'>
+  {renderAddSection('youtubers')}
+  {youtubers.length === 0 && <p className="text-[#CCCCCC]">Nothing here...</p>}
+  {renderItems(youtubers, 'youtubers')}
+</TabsContent>
+
         </Tabs>
       </div>
     </>

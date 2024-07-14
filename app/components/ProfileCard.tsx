@@ -14,7 +14,7 @@ interface ProfileCardProps {
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
   return (
-    <div className="bg-[#121e2c] shadow-md p-8 rounded-xl w-full max-w-[300px] min-w-[280px] mx-auto h-[400px] flex flex-col justify-between items-center">
+    <div className="bg-[#0a0a0a] border border-[#36363d] shadow-md p-8 rounded-xl w-full max-w-[300px] min-w-[280px] mx-auto h-[400px] flex flex-col justify-between items-center">
       <div className="flex flex-col items-center">
         <div className="w-32 h-32 rounded-full overflow-hidden mb-6">
           <Image
