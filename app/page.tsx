@@ -1,50 +1,55 @@
 'use client'
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import ProfileCard from "./components/ProfileCard";
 
 interface User {
   _id: string;
   name: string;
   profession: string;
-  about: string;
   image: string;
 }
 
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchUsers() {
+    const fetchUsers = async () => {
       try {
-        const response = await fetch('/api/users');
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        const data = await response.json();
-        setUsers(data);
+        const response = await axios.get('/api/users');
+        setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
+        setError('Failed to fetch users. Please try again later.');
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchUsers();
   }, []);
 
-  const fetchProfile = useCallback(async () => {
-    if (session?.user?.email) {
-      try {
-        const response = await axios.get(`/api/profile?email=${session.user.email}`);
-        setProfile(response.data);
-        setEditedProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    }
-  }, [session?.user?.email]);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[400px] bg-gray-900">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-400"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900 text-red-500">
+        {error}
+      </div>
+    );
+  }
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <main className="container max-w-7xl mx-auto py-8 bg-gray-900">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {users.map((user) => (
           <ProfileCard key={user._id} user={user} />
         ))}
