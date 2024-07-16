@@ -37,7 +37,7 @@ export default function Home() {
     if (status === "authenticated") {
       fetchUsers();
     }
-  }, [status]);
+  }, [status,session]);
 
   if (status === "loading" || loading) {
     return (
