@@ -6,6 +6,9 @@ if (!process.env.MONGODB_URI) {
     throw new Error('Please add the MONGODB_URI');
 }
 
+export const dynamic = 'force-dynamic'; // This forces the route to be dynamic
+export const revalidate = 0; // This disables caching for this route
+
 export async function GET(req: NextRequest) {
     try {
         await connectToDB();

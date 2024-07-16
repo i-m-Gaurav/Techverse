@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('/api/users');
+        const response = await axios.get(`/api/users?t=${new Date().getTime()}`);
         console.log('Fetched Users:', response.data); // Log fetched users to verify
         setUsers(response.data);
       } catch (error) {
