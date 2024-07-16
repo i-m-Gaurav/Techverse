@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useSession, signOut } from "next-auth/react";
+import { useSession,signIn, signOut } from "next-auth/react";
 import Image from 'next/image';
 
 import {useRouter} from 'next/navigation'
@@ -71,9 +71,8 @@ const Navbar: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild>
-                <Link href="/api/auth/signin">Sign In</Link>
-              </Button>
+              <button className='px-4 py-1 rounded border border-[#36363d] bg-[#0a0a0a] hover:bg-[#cccccc] hover:text-black ' onClick={() => signIn('google')}> SignIn</button>
+
             )}
           </div>
         </div>
