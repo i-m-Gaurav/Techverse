@@ -1,5 +1,4 @@
-'use client'
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProfileCard from "./components/ProfileCard";
 import { useSession } from 'next-auth/react';
@@ -10,21 +9,25 @@ interface User {
   profession: string;
   image: string;
   email?: string; // Add email field to match with session user
-  college:string;
+  college: string;
 }
 
-export default function Home() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+interface HomeProps {
+  initialUsers: User[];
+}
+
+export default function Home({ initialUsers }: HomeProps) {
+  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { data: session, status } = useSession();
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       try {
         const response = await axios.get('/api/users');
-        console.log('Fetched Users:', response.data); // Log fetched users to verify
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -33,9 +36,11 @@ export default function Home() {
         setLoading(false);
       }
     };
-  
-    fetchUsers();
-  }, [session]); // Added session as a dependency to refetch users on session change
+
+    if (session) {
+      fetchUsers();
+    }
+  }, [session]);
 
   if (status === "loading") {
     return (
@@ -61,19 +66,8 @@ export default function Home() {
     );
   }
 
-  // Log session data
-  console.log('Session Data:', session);
-
-  // Log users data
-  console.log('All Users:', users);
-
-  // Filter out the current user and log the filtered users
-  const filteredUsers = users.filter(user => {
-    console.log('Comparing:', user.email, 'with', session?.user?.email);
-    return user.email !== session?.user?.email;
-  });
-  
-  console.log('Filtered Users:', filteredUsers);
+  // Filter out the current user
+  const filteredUsers = users.filter(user => user.email !== session?.user?.email);
 
   return (
     <main className="container max-w-7xl mx-auto py-8 bg-[#000000]">
@@ -84,4 +78,23 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+// Fetch users from the server side
+export async function getServerSideProps() {
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/users`);
+    return {
+      props: {
+        initialUsers: response.data,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return {
+      props: {
+        initialUsers: [],
+      },
+    };
+  }
 }
