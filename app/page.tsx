@@ -73,7 +73,7 @@ export default function Home() {
     return user.email !== session?.user?.email;
   });
   
-  console.log('Filtered Users:', filteredUsers);
+  // console.log('Filtered Users:', filteredUsers);
 
   return (
     <main className="container max-w-7xl mx-auto py-8 bg-[#000000]">
