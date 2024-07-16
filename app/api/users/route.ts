@@ -1,25 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
+import { connectToDB } from "@/lib/database";
+import mongoose from 'mongoose';
 
-const uri = process.env.MONGODB_URI as string;
-
-if (!uri) {
+if (!process.env.MONGODB_URI) {
     throw new Error('Please add the MONGODB_URI');
 }
 
 export async function GET(req: NextRequest) {
-    const client = new MongoClient(uri);
-
     try {
-        await client.connect();
-        const db = client.db();
-
-        const usersCollection = db.collection('users');
+        await connectToDB();
+        
+        const usersCollection = mongoose.connection.collection('users');
        
-
         const users = await usersCollection.find(
             {},
-            { projection: { name: 1, profession: 1, college:1, image: 1, email: 1 } }
+            { projection: { name: 1, profession: 1, college: 1, image: 1, email: 1 } }
         ).toArray();
 
         if (users.length === 0) {
@@ -29,10 +24,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(users);
         
     } catch (error: any) {
-        console.log('Error in GET /api/users', error);
+        console.error('Error in GET /api/users', error);
         return NextResponse.json({ error: 'Internal Server Error', details: error.message }, { status: 500 });
-        
-    } finally {
-        await client.close();
     }
 }
